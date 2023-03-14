@@ -16,7 +16,7 @@ fn try_unzip(
     index: usize,
     write_output: bool,
 ) -> UnzipResult {
-    let x = match zip.by_index_decrypt(index, password.as_bytes()).unwrap() {
+    match zip.by_index_decrypt(index, password.as_bytes()).unwrap() {
         Ok(mut file) => {
             // try to extract the first file
             let mut buf = Vec::new();
@@ -46,8 +46,7 @@ fn try_unzip(
             }
         }
         Err(_) => UnzipResult::PwMismatch,
-    };
-    x
+    }
 }
 
 // brute force zip file password using mask attack. run in release mode for best performance
